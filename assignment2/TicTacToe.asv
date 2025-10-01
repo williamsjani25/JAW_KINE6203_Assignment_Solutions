@@ -1,0 +1,166 @@
+%Tic Tac Toe Assigment: Due October 1,2025
+% Hello! My name is Ja'Niyah Williams and todays date is 9/16/2025. The
+% goal of this code is to play an interactive game of Tic Tac Toe between
+% an indiviudal and the computer. 
+
+%Welcome message. This will welcome the user and ask if they'd like to play
+%a game of Tic Tac Toe. If the user types 1, the game will automatically
+%begin. If the user types any other number of character, the game will end.
+userinputBegining = input('Hello! Welcome to Tic Tac Toe. Would you like to play? Yes=1/ No=any button ');
+    if userinputBegining == 1
+    gameboard = [0 0 0; 0 0 0; 0 0 0];
+    disp(gameboard);
+    playerTurn = 1 %User marker will be 1
+    computerTurn=-1 %Computer marker will be -1. 
+    % The 1 and -1 come into play when validating wins. 
+    else 
+       disp('See you next time!');
+    end
+
+%This while loop is the game play loop. It will continue as long as the
+%player wants to play. 
+while true  
+    move = input('Enter where you would like to move on the game board (1-9) Press 0 to exit the game');
+    if move == 1  
+        if gameboard(1,1) == 0
+            gameboard (1,1) = playerTurn
+        else
+            disp('Position already taken, please choose another move.');
+            continue;
+        end
+    elseif move == 2
+        if gameboard (1,2) == 0
+        gameboard (1,2) = playerTurn
+        else 
+            disp('Position already taken, please choose another move.');
+            continue;
+        end
+    elseif move == 3 
+        if gameboard (1,3) == 0
+        gameboard (1,3) = playerTurn
+        else
+            disp('Position already taken, please choose another move.');
+            continue;
+        end
+    elseif move == 4 
+        if gameboard (2,1) == 0
+        gameboard (2,1) = playerTurn
+        else 
+            disp('Position already taken, please choose another move.');
+            continue;
+        end
+    elseif move == 5 
+        gameboard (2,2) = playerTurn
+    elseif move == 6 
+        if gameboard == 0
+        gameboard (2,3) = playerTurn
+        else 
+            disp('Position already taken, please choose another move.');
+            continue;
+        end
+    elseif move == 7
+        if gameboard (3,1) == 0
+        gameboard (3,1) = playerTurn
+        else 
+            disp('Position already taken, please choose another move.');
+            continue;
+        end
+    elseif move == 8 
+        if gameboard (3,2) == 0
+        gameboard (3,2) = playerTurn
+        else 
+            disp('Position already taken, please choose another move.');
+            continue;
+        end
+    elseif move == 9 
+        if gameboard (3,3) == 0
+        gameboard (3,3) = playerTurn
+        else 
+            disp('Position already taken, please choose another move.');
+            continue;
+        end
+    elseif move == 0
+        disp('Thank you for playing! Goodbye!'); 
+        break
+    end      
+
+
+% Computer Turn. For this submission, I kept it very simple. The computer
+% is not beatable and follows the same pattern each game, making it easy to
+% beat after a while. After this assignment is submitted, I plan to keep
+% improving this code, and making the computer beatable will be on that to
+% do list. The computer will first find where the gameboard is equal to
+% zero in a left to right sweep. The computer will place its move in the
+% first spot available. 
+disp 'Now the computer will go.'
+    find (gameboard == 0);
+    if gameboard (1,1) == 0
+        gameboard (1,1) = computerTurn
+    elseif gameboard (1,2) == 0
+        gameboard (1,2) = computerTurn
+    elseif gameboard (1,3) == 0
+        gameboard (1,3) = computerTurn
+    elseif gameboard (2,1) == 0
+        gameboard (2,1) = computerTurn
+     elseif gameboard (2,2) == 0
+        gameboard (2,2) = computerTurn
+    elseif gameboard (2,3) == 0
+        gameboard (2,3) = computerTurn
+    elseif gameboard (3,1) == 0
+        gameboard (3,1) = computerTurn
+    elseif gameboard (3,2) == 0
+        gameboard (3,2) = computerTurn
+    elseif gameboard (3,3) == 0
+        gameboard (3,3) = computerTurn
+    end 
+   
+    
+% Check to see if there is a winner. For this section of the code, I will
+% like to thank Ben and Copilot for its assistance. I was having trouble
+% validating winners, and ben suggested taking a sum of my matrix numbers,
+% with a +3 indicating a player win, and a -3 indicating a computer win.
+% Copilot assisted in setting up line 83 "if any(sum(gameboard, 1) == 3) ||
+%  any(sum(gameboard, 2) == 3) || sum(diag(gameboard)) == 3 || 
+% sum(diag(flipud(gameboard))) == 3, and I asked it to walk me through what
+% it meant. Everything was self explanatory, with the exception of flipup.
+% After some research, I learned that flipuid allows for the matrix to be
+% flipped, which in this case, even if it was flipped if the sum is 3/-3, a
+% winner can still be crowned. From there, I made the if else function that
+% would either prompt the player to play again or exit the game if they'd
+% like. 
+
+    if any(sum(gameboard, 1) == 3) || any(sum(gameboard, 2) == 3) || sum(diag(gameboard)) == 3 || sum(diag(flipud(gameboard))) == 3
+        winner = 1; %The player wins this game!
+        disp 'Congratulations you win!' 
+           playAgain = input('Would you like to play again? (y=1 n=Press any other key)');
+            if playAgain == 1
+            gameboard = [0 0 0; 0 0 0; 0 0 0]; % Reset the game board    
+            else %Similar to before, any key other than 1 will end the game
+            display 'Thank you for playing! Goodbye.'
+            break
+            
+            end
+ % A similar methodology was applied as above. The only difference is in
+ % this section the computer wins. 
+    elseif any(sum(gameboard, 1) == -3) || any(sum(gameboard, 2) == -3) || sum(diag(gameboard)) == -3 || sum(diag(flipud(gameboard))) == -3
+        winner = -1; % The computer wins this game!
+        disp 'Oh no! Try again next time'
+        playAgain = input ('Would you like to play again? (y=1 n=Press any other key)');
+            if playAgain == 1
+            gameboard = [0 0 0; 0 0 0; 0 0 0]; % Reset the game board    
+            else
+            display 'Thank you for playing! Goodbye.'
+            break
+            end
+    else
+        for move = 1:9
+        winner = 0; % There is no winner yet. The game loop will continue. 
+    continue
+        end 
+    end 
+end 
+%The end! Things I am proud of is honestly finishing this and it working.
+%Something I'd like to improve on is making the computer beatable. For this
+%assignment, I was able to add a computer move that is a very basic
+%pattern, but I would love to expand on this and make it more complex to
+%come. 
